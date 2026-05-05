@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Items | L&F System</title>
+    <style>
+        /* --- RESET & FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(rgba(185, 185, 185, 0.7), rgba(255, 187, 132, 0.7)),
+                url("1.jpg") no-repeat center center/cover fixed; 
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .container { display: flex; min-height: 100vh; }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 260px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 2.5rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .sidebar h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 3rem; }
+        .sidebar nav ul { list-style: none; }
+        .sidebar nav a { text-decoration: none; color: inherit; display: block; }
+        .sidebar nav li { padding: 12px 18px; margin-bottom: 8px; border-radius: 12px; cursor: pointer; font-weight: 500; color: #475569; transition: 0.2s; }
+        .sidebar nav li.active { background: rgba(255, 255, 255, 0.5); color: #000; }
+
+        /* --- MAIN CONTENT --- */
+        .content { flex-grow: 1; padding: 3rem; }
+        .content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; }
+        .content-header h1 { font-size: 2rem; font-weight: 700; }
+
+        .btn-report {
+            background-color: #6366f1;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+            transition: transform 0.2s;
+        }
+
+        /* --- ITEMS GRID --- */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .item-card:hover { transform: translateY(-8px); }
+        .card-image { height: 200px; background: #f8fafc; position: relative; }
+        .card-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        .status-badge {
+            position: absolute;
+            top: 15px; right: 15px;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .status-badge.searching { background: #f59e0b; }
+        .status-badge.matched { background: #10b981; }
+
+        .card-body { padding: 1.5rem; }
+        .btn-detail {
+            margin-top: 1.5rem;
+            width: 100%;
+            padding: 0.75rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* --- MODALS --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .form-container input, .form-container select, .form-container textarea {
+            width: 100%; padding: 12px; margin-bottom: 1rem;
+            border: 1px solid #d1d5db; border-radius: 10px;
+        }
+
+        .form-actions { display: flex; gap: 10px; }
+        .submit-btn { flex: 2; background: #60a5fa; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+        .close-btn-alt { flex: 1; background: #ff5a5a; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+
+        #imagePreview img, #detImg {
+            width: 100%; max-height: 200px; object-fit: contain; border-radius: 10px; margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <h2>L&F System</h2>
+        <nav>
+            <ul>
+                <a href="dashboard.html"><li>Dashboard</li></a>
+                <a href="lost-items.html"><li class="active">Lost Items</li></a>
+                <a href="found-items.html"><li>Found Items</li></a>
+                <a href="settings.html"><li>Settings</li></a>
+                <a href="account.html"><li>Account</li></a>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <header class="content-header">
+            <h1>Your Reported Items</h1>
+            <button class="btn-report" id="openFormBtn">+ Report New Item</button>
+        </header>
+
+        <div class="items-grid" id="itemsGrid">
+            <!-- Items will be injected here by JavaScript -->
+        </div>
+    </main>
+</div>
+
+<!-- Report Modal -->
+<div id="reportModal" class="modal-overlay">
+    <div class="form-container">
+        <h2>Report Lost Item</h2>
+        <label>Item Name</label>
+        <input type="text" id="lostName" placeholder="e.g. Blue Backpack">
+        <label>Category</label>
+        <select id="lostCategory">
+            <option value="Electronics">Electronics</option>
+            <option value="Documents">Documents</option>
+            <option value="Personal">Personal Belongings</option>
+        </select>
+        <label>Location</label>
+        <input type="text" id="lostLocation" placeholder="e.g. Library">
+        <label>Date</label>
+        <input type="date" id="lostDate">
+        <label>Image</label>
+        <input type="file" id="lostImage" onchange="previewImage(event)">
+        <div id="imagePreview"></div>
+        <label>Description</label>
+        <textarea id="lostDesc" rows="3" placeholder="Unique marks?"></textarea>
+        <div class="form-actions">
+            <button class="submit-btn" onclick="submitLost()">Submit Report</button>
+            <button class="close-btn-alt" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Details Modal -->
+<div id="detailsModal" class="modal-overlay">
+    <div class="form-container">
+        <h2 id="detName">Item Name</h2>
+        <img id="detImg" src="">
+        <p><strong>Category:</strong> <span id="detCategory"></span></p>
+        <p><strong>Location:</strong> <span id="detLocation"></span></p>
+        <p><strong>Date:</strong> <span id="detDate"></span></p>
+        <p><strong>Description:</strong></p>
+        <p id="detDesc" style="color: #64748b; margin-bottom: 1.5rem;"></p>
+        <button class="submit-btn" style="width: 100%;" onclick="closeDetails()">Close</button>
+    </div>
+</div>
+<script>
+const reportModal = document.getElementById('reportModal');
+const detailsModal = document.getElementById('detailsModal');
+const itemsGrid = document.getElementById('itemsGrid');
+
+document.getElementById('openFormBtn').onclick = () => reportModal.style.display = 'flex';
+
+function closeModal() { reportModal.style.display = 'none'; }
+function closeDetails() { detailsModal.style.display = 'none'; }
+
+// 🔍 Preview Image
+function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        document.getElementById('imagePreview').innerHTML =
+            `<img src="${e.target.result}">`;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+// ✅ LOAD ITEMS FROM BACKEND
+async function loadLostItems() {
+    try {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            alert("Please login first");
+            window.location.href = "login.html";
+            return;
+        }
+
+        const res = await fetch('http://localhost:3000/api/items/lost', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        const data = await res.json();
+        console.log("DATA:", data);
+
+        itemsGrid.innerHTML = '';
+
+        data.forEach((item) => {
+
+    // 🔴 FIX 1: SAFE IMAGE PATH
+    const imageUrl = item.image && !item.image.startsWith('http')
+        ? `http://localhost:3000/${item.image}`
+        : (item.image || 'https://via.placeholder.com/400');
+
+    // 🔴 FIX 2: REMOVE WRAPPER BUG
+    const card = document.createElement("div");
+    card.className = "item-card";
+
+    card.innerHTML = `
+        <div class="card-image">
+            <img src="${imageUrl}">
+            <span class="status-badge ${item.status?.toLowerCase() || 'searching'}">
+                ${item.status || 'Open'}
+            </span>
+        </div>
+        <div class="card-body">
+            <h3>${item.title}</h3>
+            <p><strong>Location:</strong> ${item.location}</p>
+            <p><strong>Date:</strong> ${new Date(item.dateLost).toLocaleDateString()}</p>
+            <button class="btn-detail">View Details</button>
+        </div>
+    `;
+
+    // 🔴 FIX 3: SAFE EVENT HANDLING
+    card.querySelector(".btn-detail").onclick = () => showDetails(item);
+
+    // ✅ ADD TO GRID
+    itemsGrid.appendChild(card);
+});
+    } catch (err) {
+        console.error("Error loading items:", err);
+        alert("Error loading items");
+    }
+}
+
+// ✅ SHOW DETAILS (SAFE)
+function showDetails(item) {
+    document.getElementById('detName').innerText = item.title;
+    document.getElementById('detImg').src =
+        item.image ? `http://localhost:3000/${item.image}` : "";
+    document.getElementById('detCategory').innerText =
+        item.category || "Not specified";
+    document.getElementById('detLocation').innerText = item.location;
+    document.getElementById('detDate').innerText =
+        new Date(item.dateLost).toLocaleDateString();
+    document.getElementById('detDesc').innerText =
+        item.description || "";
+
+    detailsModal.style.display = 'flex';
+}
+
+// ✅ SUBMIT LOST ITEM
+async function submitLost() {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        alert("Login required");
+        return;
+    }
+
+    const name = document.getElementById("lostName").value;
+    const category = document.getElementById("lostCategory").value;
+    const location = document.getElementById("lostLocation").value;
+    const date = document.getElementById("lostDate").value;
+    const desc = document.getElementById("lostDesc").value;
+    const fileInput = document.getElementById("lostImage");
+
+    if (!name || !category || !location) {
+        alert("Fill required fields");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('itemName', name);
+    formData.append('category', category);
+    formData.append('location', location);
+    formData.append('dateLost', date);
+    formData.append('description', desc);
+
+    if (fileInput.files[0]) {
+        formData.append('image', fileInput.files[0]);
+    }
+
+    try {
+        const res = await fetch('http://localhost:3000/api/lost', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            body: formData
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            alert("Item submitted!");
+            closeModal();
+            loadLostItems();
+        } else {
+            alert(data.error || "Error");
+        }
+
+    } catch (err) {
+        console.error("Submit Error:", err);
+        alert("Server error");
+    }
+}
+
+// 🚀 Load items on page open
+loadLostItems();
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+    <nav class="side-navbar">
+        <div class="sidebar-logo">L&F System</div>
+        <ul>
+            <li><a href="index.html" class="active">Dashboard</a></li>
+            <li><a href="lost-items.html">Lost Items</a></li>
+            <li><a href="found-items.html">Found Items</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="account.html">Account</a></li>
+        </ul>
+    </nav>
+
+    <div class="dashboard-wrapper">
+        <div class="container">
+            <header>
+            </header>
+
+            <div class="search-and-filter-wrapper">
+                <div class="merged-search-bar">
+                    <div class="search-input-area">
+                        <input type="text" id="searchInput" placeholder="Search for items...">
+                    </div>
+                    <div class="search-divider"></div>
+                    <div class="location-select-area">
+                        <select id="locationFilter">
+                            <option value="all">All Locations</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="matchAlert" style="display:none; background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin: 10px 0; border: 1px solid #c3e6cb;">
+                <p id="matchMessage"></p>
+            </div>
+            <div class="options">
+                <div class="card">
+                    <h2>Report Lost Item</h2>
+                    <p>Lost something on campus? Submit details and help us find it.</p>
+                    <button onclick="openLostForm()">Report Now</button>
+                </div>
+                <div class="card">
+                    <h2>Report Found Item</h2>
+                    <p>Found an item? Help return it to the rightful owner.</p>
+                    <button onclick="openFoundForm()">Upload Item</button>
+                </div>
+                <div class="card">
+                    <h2>Claim Form</h2>
+                    <p>Recognized your item in the catalog? Claim it easily.</p>
+                    <button onclick="openClaimForm()">Claim Now</button>
+                </div>
+            </div>
+
+            <div class="catalog" id="catalog">
+                <!-- <h2>Found Items Catalog</h2> -->
+                <!-- <div class="items" id="catalogGrid">
+                    <div class="item">
+                        <h3>Black Wallet</h3>
+                        <p class="location-text">Library</p>
+                        <button onclick="openClaimForm()">Claim</button>
+                    </div>
+                    <div class="item">
+                        <h3>iPhone Charger</h3>
+                        <p>Canteen</p>
+                        <button onclick="openClaimForm()">Claim</button>
+                    </div>
+                    <div class="item">
+                        <h3>Blue Bottle</h3>
+                        <p>Ground</p>
+                        <button onclick="openClaimForm()">Claim</button>
+                    </div>
+                </div> -->
+                <!-- <button class="catalog-btn" onclick="goToCatalog()">View Found Items</button> -->
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modal">
+        <div class="form-box">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="formContent"></div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

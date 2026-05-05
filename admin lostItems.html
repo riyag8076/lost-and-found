@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lost Items</title>
+  <link rel="stylesheet" href="adminstye.css">
+</head>
+<body>
+
+<h2>Admin Panel</h2>
+
+<button onclick="loadLostItems()">Show Lost</button>
+
+<div id="items">Click "Show Lost" to load items</div>
+
+<script>
+function loadLostItems() {
+  const token = localStorage.getItem("token");
+
+  fetch("http://localhost:3000/api/items/lost", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    }
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("Unauthorized or server error");
+    return res.json();
+  })
+  .then(data => {
+    console.log("DATA:", data);
+
+    const container = document.getElementById("items");
+
+    if (!data.length) {
+      container.innerHTML = "<p>No items found</p>";
+      return;
+    }
+
+    container.innerHTML = "";
+
+    data.forEach(item => {
+      container.innerHTML += `
+        <div class="item-card">
+          <h3>${item.title}</h3>
+          <p>${item.description}</p>
+          <p><b>Location:</b> ${item.location}</p>
+          <p><b>Category:</b> ${item.category}</p>
+          <p><b>Status:</b> ${item.status}</p>
+          <p><b>Date Lost:</b> ${
+            item.dateLost ? new Date(item.dateLost).toLocaleDateString() : "N/A"
+          }</p>
+          ${item.image ? `<img src="${item.image}" width="150">` : ""}
+        </div>
+      `;
+    });
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("items").innerHTML =
+      "<p style='color:red;'>Error loading items</p>";
+  });
+}
+</script>
+
+</body>
+</html>

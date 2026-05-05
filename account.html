@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Account | L&F System</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <h2>L&F System</h2>
+        <nav>
+            <ul>
+                <a href="dashboard.html"><li>Dashboard</li></a>
+                <a href="lost-items.html"><li>Lost Items</li></a>
+                <a href="found-items.html"><li>Found Items</li></a>
+                <a href="settings.html"><li>Settings</li></a>
+                <a href="account.html"><li class="active">Account</li></a>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <h1>Account Details</h1>
+
+        <!-- ✅ SINGLE PROFILE SECTION -->
+        <div style="background: white; padding: 3rem; border-radius: 20px; margin-top: 2rem; display: flex; align-items: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+            
+            <div style="width: 100px; height: 100px; background: #e2e8f0; border-radius: 50%; margin-right: 2rem; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                👤
+            </div>
+
+            <div>
+                <h2 id="userNameDisplay">Your Name</h2>
+                <p id="userIdDisplay" style="color: #64748b;">Student ID</p>
+                <p id="userEmailDisplay" style="color: #64748b; margin-bottom: 15px;">email@example.com</p>
+
+                <button class="btn-detail" style="width: auto; padding: 8px 20px;">
+                    Edit Profile
+                </button>
+
+                <!-- ✅ ONLY ONE LOGOUT BUTTON -->
+                <button class="btn-detail logout-btn"
+                    style="width: auto; padding: 8px 20px; border-color: #fca5a5; color: #ef4444;">
+                    Logout
+                </button>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // 🔐 Get stored data
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+
+    // 🚫 Redirect if not logged in
+    if (!userData || !token) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    // ✅ Show user details
+    document.getElementById("userNameDisplay").textContent =
+        userData.name || "No Name";
+
+    document.getElementById("userEmailDisplay").textContent =
+        userData.email || "No Email";
+
+    document.getElementById("userIdDisplay").textContent =
+        "ID: " + (userData.id || "N/A");
+
+    // 🔴 LOGOUT FUNCTION (WORKING)
+    document.querySelector(".logout-btn").addEventListener("click", () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        window.location.href = "login.html";
+    });
+
+});
+</script>
+
+</body>
+</html>

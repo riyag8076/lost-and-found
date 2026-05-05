@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login Signup</title>
+
+<style>
+body { font-family: Arial; background:#f2f2f2; }
+.box {
+    width:300px;
+    margin:100px auto;
+    padding:20px;
+    background:white;
+    border-radius:10px;
+}
+input, button {
+    width:100%;
+    margin:5px 0;
+    padding:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2 id="title">Login</h2>
+
+    <input id="name" placeholder="Name (signup only)">
+    <input id="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+
+    <button onclick="submit()">Submit</button>
+
+    <p onclick="toggle()" style="cursor:pointer;color:blue">
+        Switch to Signup
+    </p>
+</div>
+
+<script>
+let isLogin = true;
+
+function toggle() {
+    isLogin = !isLogin;
+    document.getElementById("title").innerText = isLogin ? "Login" : "Signup";
+}
+
+async function submit() {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const url = isLogin ? "/api/login" : "/api/signup";
+
+    const res = await fetch("http://localhost:3000" + url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password })
+    });
+
+    const data = await res.json();
+
+    if (data.error) {
+        alert(data.error);
+        return;
+    }
+
+    // ✅ save token
+    localStorage.setItem("token", data.token);
+
+    // ✅ success alert
+    alert("Login successful");
+
+    // ✅ redirect based on role
+    if (data.user.role === "admin") {
+        window.location.href = "admin.html";
+    } else if (data.user.role === "student") {
+        window.location.href = "student.html";
+    }
+}
+</script>
+
+</body>
+</html>

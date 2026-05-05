@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Found Items Catalog | L&F System</title>
+    <style>
+        /* --- RESET & FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(rgba(185, 185, 185, 0.7), rgba(255, 187, 132, 0.7)),
+                url("1.jpg") no-repeat center center/cover fixed;
+            /* background-attachment: fixed; */
+            min-height: 100vh;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- SIDEBAR NAV A RESET (Crucial for Navigation) --- */
+        .sidebar nav a {
+            text-decoration: none; /* Removes blue underline */
+            color: inherit;        /* Keeps original text color */
+            display: block;        /* Makes the whole row clickable */
+        }
+
+        /* --- SIDEBAR STYLE (Image 1 Style) --- */
+        .sidebar {
+            width: 260px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 2.5rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .sidebar h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            letter-spacing: -0.5px;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+        }
+
+        .sidebar nav li {
+            padding: 12px 18px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #475569;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar nav li:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* The active pill background */
+        .sidebar nav li.active {
+            background: rgba(255, 255, 255, 0.5);
+            color: #000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- MAIN CONTENT (Image 2 Style) --- */
+        .content {
+            flex-grow: 1;
+            padding: 3rem;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .content-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .btn-report {
+            background-color: #6366f1;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .btn-report:hover {
+            transform: scale(1.02);
+        }
+
+        /* --- ITEMS GRID --- */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .item-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card-image {
+            height: 220px;
+            background: #f8fafc;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .status-badge.searching { background: #f59e0b; }
+        .status-badge.matched { background: #10b981; }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-body p {
+            font-size: 0.95rem;
+            color: #64748b;
+            margin-bottom: 0.4rem;
+        }
+
+        .card-body strong {
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .btn-detail {
+            margin-top: 1.5rem;
+            width: 100%;
+            padding: 0.75rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-detail:hover {
+            background: #f1f5f9;
+        }
+        /* Paste the exact same CSS here as your lostitems.html */
+        /* Extra styling for the Search Bar below */
+        .search-row {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 10px 25px;
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+        .search-row input {
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .btn-claim {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <h2>L&F System</h2>
+        <nav>
+            <ul>
+                <a href="dashboard.html"><li>Dashboard</li></a>
+                <a href="lost-items.html"><li>Lost Items</li></a>
+                <a href="found-items.html"><li class="active">Found Items</li></a>
+                <a href="settings.html"><li>Settings</li></a>
+                <a href="account.html"><li>Account</li></a>
+            </ul>
+        </nav>
+    </aside>
+    <main class="content">
+        <div class="search-row">
+            <input type="text" placeholder="Search for items, locations (e.g. Library)...">
+        </div>
+        <h1>Found Items Catalog</h1>
+        <div class="items-grid" id="itemsGrid"></div>
+    </main>
+</div>
+<div id="itemsContainer"></div>
+
+<script>
+
+async function loadFoundItems() {
+    try {
+        const res = await fetch("http://localhost:3000/api/items/found");
+        const items = await res.json();
+
+        console.log(items); // ✅ debug
+
+        const container = document.getElementById("itemsGrid");
+        container.innerHTML = "";
+
+        if (items.length === 0) {
+            container.innerHTML = "<p>No items found</p>";
+            return;
+        }
+
+        items.forEach(item => {
+            const card = document.createElement("div");
+            card.className = "item-card";
+
+            card.innerHTML = `
+                <div class="card-image">
+                    ${item.image ? `<img src="http://localhost:3000${item.image}">` : `<img src="https://via.placeholder.com/400x300">`}
+                </div>
+                <div class="card-body">
+                    <h3 style="text-align:center;">${item.itemName}</h3>
+                    <p style="text-align:center;">${item.location}</p>
+                    <button class="btn-claim">Claim</button>
+                </div>
+            `;
+
+            container.appendChild(card);
+        });
+
+    } catch (err) {
+        console.error("Error loading items:", err);
+    }
+}
+
+// auto load
+loadFoundItems();
+function redirectToClaim(itemId, itemType) {
+    window.location.href = `claim.html?id=${itemId}&type=${itemType}`;
+}
+</script>
+</body>
+</html>

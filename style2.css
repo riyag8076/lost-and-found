@@ -1,0 +1,123 @@
+/* --- BASELINE CSS (Paste into Settings, Account, etc.) --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(rgba(185, 185, 185, 0.7), rgba(255, 187, 132, 0.7)),
+                url("1.jpg") no-repeat center center/cover fixed;
+            /* background-attachment: fixed; */
+            min-height: 100vh;
+            color: #1e293b;
+            margin: 0;
+        }
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- SIDEBAR NAV A RESET --- */
+/* This stops your menu links from turning blue/underlined */
+.sidebar nav a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* --- SIDEBAR STYLE (Glassmorphism) --- */
+.sidebar {
+    width: 260px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 2.5rem 1.5rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.sidebar h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    letter-spacing: -0.5px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+}
+
+.sidebar nav li {
+    padding: 12px 18px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #475569;
+    transition: all 0.2s ease;
+}
+
+.sidebar nav li:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Active Page Highlight */
+.sidebar nav li.active {
+    background: rgba(255, 255, 255, 0.5);
+    color: #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* --- MAIN CONTENT AREA --- */
+.content {
+    flex-grow: 1;
+    padding: 3rem;
+}
+
+.content h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Common Button Style (Used for 'Save' and 'Report') */
+.btn-report {
+    background-color: #6366f1;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+    transition: transform 0.2s;
+}
+
+.btn-report:hover {
+    transform: scale(1.02);
+}
+
+/* --- PAGE SPECIFIC STYLES (Settings Only) --- */
+.settings-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    max-width: 700px;
+}
+
+.setting-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}

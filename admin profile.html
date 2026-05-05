@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+  <link rel="stylesheet" href="adminstye.css">
+</head>
+<body>
+
+<h2>My Profile</h2>
+
+<div id="profile" class="card"></div>
+
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (user) {
+  document.getElementById("profile").innerHTML = `
+    <p><b>Name:</b> ${user.name}</p>
+    <p><b>Email:</b> ${user.email}</p>
+  `;
+} else {
+  document.getElementById("profile").innerHTML = "No user logged in";
+}
+</script>
+
+</body>
+</html>

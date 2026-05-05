@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings | L&F System</title>
+    <link rel="stylesheet" href="style2.css">
+    <style>
+        .settings-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 700px;
+        }
+        .setting-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <h2>L&F System</h2>
+        <nav>
+            <ul>
+                <a href="dashboard.html"><li>Dashboard</li></a>
+                <a href="lost-items.html"><li>Lost Items</li></a>
+                <a href="found-items.html"><li>Found Items</li></a>
+                <a href="settings.html"><li class="active">Settings</li></a>
+                <a href="account.html"><li>Account</li></a>
+            </ul>
+        </nav>
+    </aside>
+    <main class="content">
+        <h1>Settings</h1>
+        <div class="settings-card" style="margin-top: 2rem;">
+            <div class="setting-group">
+                <div>
+                    <h4>Email Notifications</h4>
+                    <p style="font-size: 0.8rem; color: #64748b;">Get alerts when a match is found</p>
+                </div>
+                <input type="checkbox" checked>
+            </div>
+            <div class="setting-group">
+                <div>
+                    <h4>Public Profile</h4>
+                    <p style="font-size: 0.8rem; color: #64748b;">Allow others to see your name on reports</p>
+                </div>
+                <input type="checkbox">
+            </div>
+            <button class="btn-report" style="margin-top: 1rem;">Save Preferences</button>
+        </div>
+    </main>
+</div>
+</body>
+</html>

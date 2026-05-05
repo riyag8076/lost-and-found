@@ -1,0 +1,165 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #4facfe;
+        }
+
+        .profile-info h2 {
+            margin: 0;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+            color: gray;
+        }
+
+        .edit-btn {
+            margin-left: auto;
+            padding: 10px 20px;
+            background: #4facfe;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .edit-btn:hover {
+            background: #007bff;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .section h3 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .item-card {
+            padding: 15px;
+            border-radius: 10px;
+            background: #f9f9f9;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logout {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .logout button {
+            padding: 10px 25px;
+            border: none;
+            background: red;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .logout button:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    Profile Header
+    <div class="profile-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+        
+        <div class="profile-info">
+            <h2 id="name">Sanya Bansal</h2>
+            <p id="email">sanya@email.com</p>
+            <p id="phone">+91 9876543210</p>
+        </div>
+
+        <button class="edit-btn" onclick="editProfile()">Edit</button>
+    </div>
+
+    My Items
+    <div class="section">
+        <h3>My Reported Items</h3>
+
+        <div class="items" id="itemsList">
+            <div class="item-card">
+                <h4>Lost Wallet</h4>
+                <p>Near Library</p>
+            </div>
+
+            <div class="item-card">
+                <h4>Found Phone</h4>
+                <p>Campus Gate</p>
+            </div>
+        </div>
+    </div>
+
+    Logout 
+    <div class="logout">
+        <button onclick="logout()">Logout</button>
+    </div>
+
+</div>
+
+<script>
+function editProfile() {
+    let name = prompt("Enter your name:");
+    let email = prompt("Enter your email:");
+    let phone = prompt("Enter your phone:");
+
+    if(name) document.getElementById("name").innerText = name;
+    if(email) document.getElementById("email").innerText = email;
+    if(phone) document.getElementById("phone").innerText = phone;
+}
+
+function logout() {
+    // This clears EVERYTHING stored in the browser for your site
+    localStorage.clear();
+    sessionStorage.clear();
+
+    alert("Logged out successfully!");
+
+    // Use replace so the user can't click the 'Back' button to return
+    window.location.replace("home.html"); 
+}
+</script>
+
+</body>
+</html> -->

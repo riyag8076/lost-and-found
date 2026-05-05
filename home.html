@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lost & Found</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<script>
+function toggleFaq(item){
+    item.classList.toggle("active");
+}
+</script>
+
+<body class="modern-home">
+
+<!-- 🔐 Redirect if logged in 
+<script>
+if (localStorage.getItem("user")) {
+  window.location.href = "dashboard.html";
+}
+</script>-->
+
+
+
+<!-- HERO SECTION -->
+<section class="hero-container">
+
+  <div class="hero-text">
+    <h1>
+      Find & Recover <br>
+      <span>With Ease</span>
+    </h1>
+
+    <p>Experience effortless recovery with our dedicated lost and found service.</p>
+  </div>
+
+  <div class="hero-actions">
+    <button class="start-btn" onclick="goToLogin()">Get Started</button>
+  </div>
+
+</section>
+
+<!-- REPLACE YOUR FULL HOW IT WORKS SECTION WITH THIS -->
+
+<section class="how-section">
+
+    <h2>How It Works</h2>
+    <p class="how-subtitle">
+        Three simple steps to reconnect with your lost items
+    </p>
+
+    <div class="how-steps">
+
+        <!-- STEP 1 -->
+        <div class="how-step">
+            <img src = "tt.jpeg">
+            <h3>Report a Lost Item</h3>
+            <p>
+                Fill out a simple form to upload details of the item you've found lost,
+                including descriptions, images and location.
+            </p>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="how-step">
+            <img src="tt2.jpeg">
+            <h3>Search Found Items</h3>
+            <p>
+                Filter through a list of found items reported by others to see if your
+                lost belongings have been recovered.
+            </p>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="how-step">
+            <img src="tt3.jpeg" alt="">
+            <h3>Reclaim Your Item</h3>
+            <p>
+                After finding your lost item, contact admin and arrange a safe handover.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ACTION SECTION -->
+<section class="action-section">
+
+  <h2>What Would You Like to Do?</h2>
+  <p class="action-subtitle">Choose from the options below</p>
+
+  <div class="action-container">
+
+    <!-- CARD 1 -->
+    <div class="action-card">
+      <img src="app.png" alt="">
+      <h3>Report Found Items</h3>
+      <p>
+        Submit details of the item you've found lost,
+        including descriptions and images.
+      </p>
+      <button class="blue-btn" onclick="goToLogin()">I Found Something</button>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="action-card">
+      <img src="losst.png" alt="">
+      <h3>Submit A Lost Item Search Form</h3>
+      <p>
+        Fill out the form. You will be notified if a matching
+        item is found or submitted.
+      </p>
+      <button class="yellow-btn" onclick="goToLogin()">I can't Find My Item</button>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="action-card">
+      <img src="n.gif" alt="">
+      <h3>Look for Lost Items</h3>
+      <p>
+        Browse items reported by others. Search by entering
+        your item's details.
+      </p>
+      <button class="green-btn" onclick="goToLogin()">I Lost Something</button>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- REPLACE YOUR FAQ SECTION WITH THIS -->
+
+<section class="faq-section">
+
+<h2>Frequently Asked Questions</h2>
+<p class="faq-subtitle">
+Find answers to the most commonly asked questions about the Lost & Found portal.
+</p>
+
+<div class="faq-box">
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">❓ How do I report a lost item?</div>
+<div class="faq-answer">
+Click on Get Started → Login → Dashboard → Report Lost Item form.
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">❓ How do I search for a lost item?</div>
+<div class="faq-answer">
+Open dashboard and browse the Found Items Catalog.
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">❓ What happens if I find my lost item?</div>
+<div class="faq-answer">
+Contact admin immediately and cancel your lost report.
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">❓ Is there a fee to recover my item?</div>
+<div class="faq-answer">
+Yes, a small handling fee may apply depending on item type.
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">❓ Is there a reward for returning found items?</div>
+<div class="faq-answer">
+Appreciation certificates or rewards may be given by owners.
+</div>
+</div>
+
+</div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+
+  <div class="footer-section">
+    <h4>Site</h4>
+    <p>Report Lost Item</p>
+    <p>Report Found Item</p>
+  </div>
+
+  <div class="footer-section">
+    <h4>Help</h4>
+    <p>Support</p>
+    <p>Terms</p>
+  </div>
+
+  <div class="footer-section">
+    <h4>Contact</h4>
+    <p>+91 9876543***</p>
+    <p>lostfound@gmail.com</p>
+  </div>
+
+</footer>
+
+<script>
+function goToLogin() {
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
