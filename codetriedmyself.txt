@@ -1,0 +1,34 @@
+const express= require('express');
+const app=express();
+const port=3000;
+const { items } = require('./data');
+
+app.use(express.json());
+// let items = [];
+
+
+app.get('/items',(req,res)=>{
+    return res.json(items)
+})
+
+app.post('/additem',(req,res)=>{
+    const body=req.body;
+    // console.log(body);
+    body.id=items.length+1
+    items.push(body);
+
+    res.json({message: 'items added successfully',items});
+
+})
+
+app.delete('/items/:id',(req,res)=>{
+    
+})
+
+app.listen(port,()=>{
+    console.log(`Server is listening at port ${port}`);
+})
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Zjc4MjU4Yzg4ZjYyYTVkOTQwNjM3OCIsImlhdCI6MTc3NzgzNDExNywiZXhwIjoxNzc3ODM3NzE3fQ.gBM1Tr1M2UIjmwIMXYfIucQ3LSJjON3BkZnSQGhy1AE
+
+D:\cycle.jfif
